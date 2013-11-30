@@ -87,7 +87,7 @@ class syntax_plugin_minecraftskins extends DokuWiki_Syntax_Plugin {
     public function render($mode, &$renderer, $data) {
         if($mode != 'xhtml') return false;
         $renderer->doc .= '<img src="'.$this->mlnoclean(
-            "_".$data['type'].":".$renderer->_xmlEntities($data['src']),
+            "_".$data['type'].":".$renderer->_xmlEntities($data['src']).".png",
             array(
                 'w'=>$data['width'],
                 'h'=>$data['height'],

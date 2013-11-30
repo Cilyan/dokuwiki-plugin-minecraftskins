@@ -53,18 +53,23 @@ class action_plugin_minecraftskins extends DokuWiki_Action_Plugin {
         }
     }
     
-    function _getSkin($player = 'char') {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://s3.amazonaws.com/MinecraftSkins/' . $player . '.png');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        $output = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        if($status!='200') {
-            $output = file_get_contents(DOKU_PLUGIN.plugin_directory('minecraftskins')."/char.png");
+    /**
+     * Get the current skin for a given player
+     * 
+     * If the player has no skin available on Minecraft, the default minecraft
+     * skin will be returned.
+     */
+    function _getSkin($player = 'char.png') {
+        $http = new DokuHTTPClient();
+        $skin = $http->get(
+            'http://s3.amazonaws.com/MinecraftSkins/' . $player
+        );
+        if($skin === false) {
+            $skin = file_get_contents(
+                DOKU_PLUGIN.plugin_directory('minecraftskins')."/char.png"
+            );
         }
-        return $output;
+        return $skin;
     }
     
     function _printHead($player, $size) {
