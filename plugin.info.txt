@@ -1,0 +1,7 @@
+base   minecraftskins
+author Cilyan Olowen
+email  gaknar@gmail.com
+date   2013-11-29
+name   minecraftskins plugin
+desc   Easily embed Minecraft skin of players in your page
+url    https://www.dokuwiki.org/plugin:minecraftskins
