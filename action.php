@@ -26,7 +26,10 @@ class action_plugin_minecraftskins extends DokuWiki_Action_Plugin {
     function handle_fetch_media_status(&$event, $param) {
         $media = getID('media', false);
         $pos = strpos($media, '/');
-        if($pos === false) return;
+        if($pos === false) {
+            $pos = strpos($media, ':');
+            if($pos === false) return;
+        }
         $prefix = substr($media,0,$pos);
         $media = substr($media,$pos+1);
         $event->result = false;
